@@ -1,0 +1,37 @@
+#include <reg51.h>					  		//Header file
+							  
+unsigned char j,k;						        //Variables
+unsigned char *_data p = 0x56;					        //Pointer points to internal data memory
+
+void delay (unsigned int);					        //Delay function prototype
+
+void main ()
+{								        //Main program starts here
+	P1=*p;	
+    P1=0x01	;					        //Assigning P1 with the last  P1 value stored in idata;
+	for (j=0;j<2;j++)					        //For loop1
+	{
+		for (k=0;k<10;k++)				        //For loop2
+		{
+			if(P1 == 0x01 || P1 == 0x00 || P1 == 0xff)      //If P1=0x01 or 0x00 or 0xff
+			{					        
+				P1 = 0x08;			        //Assign 0x08 value to P1
+				delay(3000);			        //Call delay function
+			}
+			else					        //Else
+			{
+				P1 = P1>>1;			        //Rotate P1's value right by 1 bit
+				delay(3000);			        //Call delay function
+			}		
+		}						        
+		*p=P1;						        //Stores P1 value in idata
+		delay (25000);					        //Call delay function
+	}							        
+	while (1);  							//Always true condition, jump here
+ }								        //End of main program
+
+ void delay (unsigned int a)					        
+ {								        //Delay function starts here
+ 	unsigned int i;						        //Variable
+ 	for (i=0;i<=a;i++);					        //For loop for delay
+ }								        //End of delay function
